@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyScanner</string>
+    <string name="scanner_btn_text">Code scanner</string>
+    <string name="scanner_history_btn_text">Scanner history</string>
+    <string name="main_page_btn_text">Main page</string>
+    <string name="float_btn_content_description">toHome</string>
+    <string name="share_btn_text">share</string>
+</resources>

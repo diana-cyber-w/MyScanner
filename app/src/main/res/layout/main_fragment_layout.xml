@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/spearmint">
+
+    <Button
+        android:id="@+id/scannerButton"
+        android:layout_width="@dimen/dimen_200"
+        android:layout_height="@dimen/dimen_50"
+        android:layout_marginBottom="@dimen/dimen_64"
+        android:backgroundTint="@color/hot_pink"
+        android:text="@string/scanner_btn_text"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_size_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/scannerHistoryButton"
+        android:layout_width="@dimen/dimen_200"
+        android:layout_height="@dimen/dimen_50"
+        android:layout_marginTop="@dimen/dimen_64"
+        android:backgroundTint="@color/hot_pink"
+        android:text="@string/scanner_history_btn_text"
+        android:textAllCaps="false"
+        android:textSize="@dimen/font_size_20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
