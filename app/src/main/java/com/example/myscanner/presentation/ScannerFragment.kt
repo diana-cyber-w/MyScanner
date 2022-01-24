@@ -1,12 +1,9 @@
 package com.example.myscanner.presentation
 
-import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,7 +13,9 @@ import com.example.myscanner.DaggerApplication
 import com.example.myscanner.R
 import com.example.myscanner.databinding.CodeScannerLayoutBinding
 import com.example.myscanner.domain.Scan
+import com.example.myscanner.utils.checkPermission
 import com.example.myscanner.utils.dateInString
+import com.example.myscanner.utils.requestPermission
 import javax.inject.Inject
 
 
@@ -27,7 +26,7 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
     private var newScan = Scan("", "")
 
     @Inject
-    lateinit var viewModel: SharedViewModel
+    lateinit var viewModel: ScannerViewModel
 
     init {
         DaggerApplication.appComponent?.inject(this)
@@ -38,7 +37,7 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (checkPermission()) {
+        if (checkPermission(requireContext())) {
             codeScanner = CodeScanner(requireActivity(), binding.scannerView)
             codeScanner.decodeCallback = DecodeCallback { scan ->
                 activity?.runOnUiThread {
@@ -51,7 +50,7 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
                 codeScanner.startPreview()
             }
         } else {
-            requestPermission();
+            requestPermission(requireActivity());
         }
         binding.mainFragmentButton.setOnClickListener {
             findNavController().navigate(R.id.toMainFragment)
@@ -66,20 +65,6 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
     override fun onPause() {
         codeScanner.releaseResources()
         super.onPause()
-    }
-
-    private fun checkPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(Manifest.permission.CAMERA),
-            CAMERA_REQUEST_CODE
-        )
     }
 
     override fun onRequestPermissionsResult(

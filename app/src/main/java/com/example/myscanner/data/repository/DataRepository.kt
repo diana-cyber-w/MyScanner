@@ -1,4 +1,4 @@
-package com.example.myscanner.repository
+package com.example.myscanner.data.repository
 
 import com.example.myscanner.domain.Scan
 

@@ -5,12 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myscanner.domain.Scan
 
-class ScannerAdapter() : RecyclerView.Adapter<ScannerViewHolder>() {
+class ScannerAdapter(
+    private val itemClickListener: OnScanClickListener
+) : RecyclerView.Adapter<ScannerViewHolder>() {
 
     private var items: List<Scan> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScannerViewHolder {
-        return ScannerViewHolder.fromParent(parent)
+        return ScannerViewHolder.fromParent(parent, itemClickListener)
     }
 
     override fun onBindViewHolder(holder: ScannerViewHolder, position: Int) {

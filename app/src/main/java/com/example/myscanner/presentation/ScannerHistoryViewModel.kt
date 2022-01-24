@@ -9,7 +9,7 @@ import com.example.myscanner.domain.ScannerInteractor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SharedViewModel @Inject constructor(
+class ScannerHistoryViewModel @Inject constructor(
     private val scannerInteractor: ScannerInteractor
 ) : ViewModel() {
 
@@ -19,12 +19,6 @@ class SharedViewModel @Inject constructor(
     fun loadScans() {
         viewModelScope.launch {
             _scan.value = scannerInteractor.getScan()
-        }
-    }
-
-    fun insertScan(scan: Scan) {
-        viewModelScope.launch {
-            scannerInteractor.insertScan(scan)
         }
     }
 }

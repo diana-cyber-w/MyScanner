@@ -25,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_marginVertical="@dimen/dimen_5"
-        android:layout_marginStart="@dimen/dimen_5"
+        android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginTop="5dp"
         android:autoLink="web"
         android:ellipsize="end"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/dimen_5"
-        android:layout_marginEnd="5dp"
+        android:layout_marginEnd="@dimen/dimen_16"
         android:background="@color/spearmint"
         android:contentDescription="@string/share_btn_text"
         android:src="@drawable/ic_baseline_share_24" />

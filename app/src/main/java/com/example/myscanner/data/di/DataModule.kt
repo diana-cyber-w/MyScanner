@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.myscanner.data.storage.AppDatabase
 import com.example.myscanner.data.storage.ScannerDao
-import com.example.myscanner.repository.DataRepository
-import com.example.myscanner.repository.DataRepositoryImpl
+import com.example.myscanner.data.repository.DataRepository
+import com.example.myscanner.data.repository.DataRepositoryImpl
 import dagger.Module
 import dagger.Provides
 

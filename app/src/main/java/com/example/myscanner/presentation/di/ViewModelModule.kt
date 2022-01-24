@@ -1,7 +1,8 @@
 package com.example.myscanner.presentation.di
 
 import com.example.myscanner.domain.ScannerInteractor
-import com.example.myscanner.presentation.SharedViewModel
+import com.example.myscanner.presentation.ScannerHistoryViewModel
+import com.example.myscanner.presentation.ScannerViewModel
 import dagger.Module
 import dagger.Provides
 
@@ -9,8 +10,14 @@ import dagger.Provides
 class ViewModelModule {
 
     @Provides
-    fun providesSharedViewModel(
+    fun providesScannerViewModel(
         interactor: ScannerInteractor
-    ): SharedViewModel =
-        SharedViewModel(scannerInteractor = interactor)
+    ): ScannerViewModel =
+        ScannerViewModel(scannerInteractor = interactor)
+
+    @Provides
+    fun providesScannerHistoryViewModel(
+        interactor: ScannerInteractor
+    ): ScannerHistoryViewModel =
+        ScannerHistoryViewModel(scannerInteractor = interactor)
 }

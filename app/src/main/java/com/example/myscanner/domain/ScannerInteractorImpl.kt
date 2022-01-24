@@ -1,6 +1,6 @@
 package com.example.myscanner.domain
 
-import com.example.myscanner.repository.DataRepositoryImpl
+import com.example.myscanner.data.repository.DataRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
