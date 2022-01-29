@@ -39,7 +39,6 @@ class ScannerHistoryFragment : Fragment(R.layout.scanner_history_layout) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
         initObserves()
-        viewModel.loadScans()
         binding.mainFragmentButton.setOnClickListener {
             findNavController().navigate(R.id.toMainFragment)
         }

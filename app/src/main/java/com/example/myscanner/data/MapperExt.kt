@@ -1,4 +1,4 @@
-package com.example.myscanner.utils
+package com.example.myscanner.data
 
 import com.example.myscanner.data.storage.ScannerEntity
 import com.example.myscanner.domain.Scan

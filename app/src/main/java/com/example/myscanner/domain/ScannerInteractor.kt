@@ -1,7 +1,9 @@
 package com.example.myscanner.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface ScannerInteractor {
-    suspend fun getScan(): List<Scan>
+    fun getScan(): Flow<List<Scan>>
 
     suspend fun insertScan(scan: Scan)
 }

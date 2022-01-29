@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myscanner.domain.Scan
 import com.example.myscanner.domain.ScannerInteractor
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,9 +17,15 @@ class ScannerHistoryViewModel @Inject constructor(
     val scan: LiveData<List<Scan>> get() = _scan
     private val _scan = MutableLiveData<List<Scan>>()
 
-    fun loadScans() {
+    init {
+        loadScans()
+    }
+
+    private fun loadScans() {
         viewModelScope.launch {
-            _scan.value = scannerInteractor.getScan()
+            scannerInteractor.getScan().collect { scans ->
+                _scan.value = scans
+            }
         }
     }
 }

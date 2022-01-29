@@ -1,9 +1,7 @@
 package com.example.myscanner.presentation
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -13,9 +11,8 @@ import com.example.myscanner.DaggerApplication
 import com.example.myscanner.R
 import com.example.myscanner.databinding.CodeScannerLayoutBinding
 import com.example.myscanner.domain.Scan
-import com.example.myscanner.utils.checkPermission
+import com.example.myscanner.utils.PermissionManager
 import com.example.myscanner.utils.dateInString
-import com.example.myscanner.utils.requestPermission
 import javax.inject.Inject
 
 
@@ -28,16 +25,15 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
     @Inject
     lateinit var viewModel: ScannerViewModel
 
+    @Inject
+    lateinit var permissionManager: PermissionManager
+
     init {
         DaggerApplication.appComponent?.inject(this)
     }
 
-    companion object {
-        private const val CAMERA_REQUEST_CODE = 1000
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (checkPermission(requireContext())) {
+        if (permissionManager.isCameraPermissionGranted(requireActivity())) {
             codeScanner = CodeScanner(requireActivity(), binding.scannerView)
             codeScanner.decodeCallback = DecodeCallback { scan ->
                 activity?.runOnUiThread {
@@ -49,8 +45,6 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
             binding.scannerView.setOnClickListener {
                 codeScanner.startPreview()
             }
-        } else {
-            requestPermission(requireActivity());
         }
         binding.mainFragmentButton.setOnClickListener {
             findNavController().navigate(R.id.toMainFragment)
@@ -65,35 +59,5 @@ class ScannerFragment : Fragment(R.layout.code_scanner_layout) {
     override fun onPause() {
         codeScanner.releaseResources()
         super.onPause()
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            CAMERA_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-                    codeScanner = CodeScanner(requireActivity(), binding.scannerView)
-                    codeScanner.decodeCallback = DecodeCallback { scan ->
-                        newScan.text = scan.text
-                        newScan.date = dateInString
-                        viewModel.insertScan(newScan)
-                    }
-                    binding.scannerView.setOnClickListener {
-                        codeScanner.startPreview()
-                    }
-                } else {
-                    Toast.makeText(
-                        requireContext(), "You need to grant permission to access camera",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }
